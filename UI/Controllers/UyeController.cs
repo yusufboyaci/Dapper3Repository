@@ -13,7 +13,7 @@ namespace UI.Controllers
         }
         public IActionResult Index()
         {
-            
+
             return View(_uyeRepository.GetAll());
         }
         [HttpGet]
@@ -21,15 +21,9 @@ namespace UI.Controllers
         [HttpPost]
         public IActionResult Insert(Uye uye)
         {
-            if (ModelState.IsValid)
-            {
-                _uyeRepository.InsertUye(uye);
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                return View(uye);
-            }
+
+            _uyeRepository.InsertUye(uye);
+            return RedirectToAction("Index");
         }
         [HttpGet]
         public IActionResult Update(Guid id) => View(_uyeRepository.GetById(id));
@@ -44,6 +38,6 @@ namespace UI.Controllers
             _uyeRepository.DeleteUye(id);
             return RedirectToAction("Index");
         }
-       
+
     }
 }

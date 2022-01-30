@@ -66,7 +66,7 @@ namespace DATAACCESS.Concrete
                     KullaniciAdi = uye.KullaniciAdi,
                     Age = uye.Age,
                 });
-                conn.Close();
+                //conn.Close();
             }
         }
 
@@ -76,9 +76,9 @@ namespace DATAACCESS.Concrete
             {
                 if (uye != null)
                 {
-                    conn.Execute($"update {_tableName}(Id,Name,Surname,KullaniciAdi,Age) set(@Id,@Name,@Surname,@KullaniciAdi,@Age)", new Uye
+                    conn.Execute($"update {_tableName} set Id=@Id,Name=@Name,Surname=@Surname,KullaniciAdi=@KullaniciAdi,Age=@Age where Id=@Id", new Uye
                     {
-                        Id = Guid.NewGuid().ToString(),
+                        Id = uye.Id.ToString(),
                         Name = uye.Name,
                         Surname = uye.Surname,
                         KullaniciAdi = uye.KullaniciAdi,
