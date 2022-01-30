@@ -13,11 +13,8 @@ namespace DATAACCESS.Concrete
 {
     public class UyeRepository : IUyeRepository
     {
-        private readonly string _tableName;
-        public UyeRepository(string tableName)
-        {
-            _tableName = tableName;
-        }
+        private readonly string _tableName = "Uye";
+      
         private SqlConnection SqlConnection()
         {
             return new SqlConnection("Server=.;Database=Dapper3Db;uid=yusuf;pwd=123");
@@ -61,13 +58,38 @@ namespace DATAACCESS.Concrete
         {
             using (var conn = CreateConnection())
             {
-                conn.Execute($"insert into {_tableName}")
+                conn.Execute($"insert into {_tableName}(Id,Name,Surname,KullaniciAdi,Age) values (@Id,@Name,@Surname,@KullaniciAdi,@Age)", new Uye
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = uye.Name,
+                    Surname = uye.Surname,
+                    KullaniciAdi = uye.KullaniciAdi,
+                    Age = uye.Age,
+                });
+                conn.Close();
             }
         }
 
         public void UpdateUye(Uye uye)
         {
-            throw new NotImplementedException();
+            using(var conn = CreateConnection())
+            {
+                if (uye != null)
+                {
+                    conn.Execute($"update {_tableName}(Id,Name,Surname,KullaniciAdi,Age) set(@Id,@Name,@Surname,@KullaniciAdi,@Age)", new Uye
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        Name = uye.Name,
+                        Surname = uye.Surname,
+                        KullaniciAdi = uye.KullaniciAdi,
+                        Age = uye.Age,
+                    });
+                }
+                else
+                {
+                    throw new Exception("Üye bulunmamaktadır!");
+                }
+            }
         }
     }
 }
