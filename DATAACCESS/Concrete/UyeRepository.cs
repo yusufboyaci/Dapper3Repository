@@ -66,7 +66,7 @@ namespace DATAACCESS.Concrete
                     KullaniciAdi = uye.KullaniciAdi,
                     Age = uye.Age,
                 });
-                //conn.Close();
+                conn.Close();
             }
         }
 
@@ -84,6 +84,7 @@ namespace DATAACCESS.Concrete
                         KullaniciAdi = uye.KullaniciAdi,
                         Age = uye.Age,
                     });
+                    conn.Close();
                 }
                 else
                 {
